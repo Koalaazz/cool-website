@@ -1,43 +1,35 @@
 <style>
 :root{
-  --w98-gray:#c0c0c0;
-  --w98-light:#ffffff;
-  --w98-dark:#808080;
-  --w98-darker:#404040;
-  --w98-blue:#000080;
+  --w98-body:#818181;
+  --w98-face:#c3c3c3;
+  --w98-white:#fdffff;
+  --w98-blue:#010081;
+  --w98-teal:#008080;
+  --w98-dark:#7f7f7f;
+  --w98-darker:#3f3f3f;
+  --w98-light:#fdffff;
 
-  /* Typography tuning so VCR-ish fonts don't look chunky */
   --ui-font-size:12px;
   --ui-line-height:1.35;
   --ui-letter-spacing:0.2px;
 }
 
-/* OPTIONAL: REAL VCR OSD MONO (requires you to host a woff2 file)
-   1) Download VCR OSD Mono from DaFont
-   2) Convert to .woff2
-   3) Upload somewhere with a direct file URL
-   4) Replace the URL below and it’ll automatically apply
-*/
-/*
+/* VCR OSD MONO (your hosted font) */
 @font-face{
   font-family:"VCR OSD Mono";
-  src:url("PUT_YOUR_DIRECT_WOFF2_URL_HERE.woff2") format("woff2");
+  src:url("https://90s.koalaz.org/VCR_OSD_MONO_1.001.ttf") format("truetype");
   font-weight:400;
   font-style:normal;
   font-display:swap;
 }
-*/
 
+/* DESKTOP */
 body{
-  background:#008080 !important;
-
-  /* If you host the font, it’ll use it. Otherwise it falls back cleanly. */
-  font-family:"VCR OSD Mono", ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace !important;
-
+  background:var(--w98-teal) !important;
+  font-family:"VCR OSD Mono","MS Sans Serif",Tahoma,sans-serif !important;
   font-size:var(--ui-font-size) !important;
   line-height:var(--ui-line-height) !important;
   letter-spacing:var(--ui-letter-spacing) !important;
-
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:geometricPrecision;
@@ -52,30 +44,30 @@ main{ padding:12px 0 !important; }
   padding:0 !important;
 }
 
-/* NAV / FOOTER WINDOWS */
+/* KEEP SPACEHEY TOP BAR CLEAN (do not button-style nav links) */
+nav a, footer a{
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  color:var(--w98-white) !important;
+  text-decoration:none !important;
+}
+nav a:hover, footer a:hover{ text-decoration:underline !important; }
+nav .top, nav .links, nav .info{ border:0 !important; }
+
+/* NAV WINDOW FRAME */
 nav, footer{
-  background:var(--w98-gray) !important;
+  background:var(--w98-face) !important;
   border-top:2px solid var(--w98-light) !important;
   border-left:2px solid var(--w98-light) !important;
   border-right:2px solid var(--w98-darker) !important;
   border-bottom:2px solid var(--w98-darker) !important;
   box-shadow:none !important;
   border-radius:0 !important;
+  position:relative !important;
 }
 
-/* DO NOT BUTTON-STYLE TOP NAV LINKS */
-nav a, footer a{
-  background:transparent !important;
-  border:0 !important;
-  padding:0 !important;
-  color:#fff !important;
-  text-decoration:none !important;
-}
-nav a:hover, footer a:hover{ text-decoration:underline !important; }
-nav .top, nav .links, nav .info{ border:0 !important; }
-
-/* NAV CLOSE BUTTON */
-nav{ position:relative !important; }
+/* NAV CLOSE BUTTON (visual only) */
 nav:after{
   content:"X";
   position:absolute;
@@ -89,7 +81,7 @@ nav:after{
   font-size:11px;
   font-weight:bold;
   color:#000;
-  background:var(--w98-gray);
+  background:var(--w98-face);
   border-top:2px solid var(--w98-light);
   border-left:2px solid var(--w98-light);
   border-right:2px solid var(--w98-darker);
@@ -97,10 +89,15 @@ nav:after{
   pointer-events:none;
 }
 
-/* KILL DARK THEME BACKGROUNDS */
+/* REMOVE DARK SITE BACKGROUNDS */
 .profile, .profile .left, .profile .right{ background:transparent !important; }
 
-/* WINDOWS */
+/* =========================
+   WIN98 WINDOW SHELLS
+   (outer frame + title bar)
+   ========================= */
+
+/* Outer window frame */
 .profile .general-about,
 .profile .mood,
 .profile .blog-preview,
@@ -111,7 +108,7 @@ nav:after{
 .profile .profile-info,
 .profile .contact,
 .profile .right .comments-table{
-  background:var(--w98-gray) !important;
+  background:var(--w98-body) !important; /* your darker window body */
   border-top:2px solid var(--w98-light) !important;
   border-left:2px solid var(--w98-light) !important;
   border-right:2px solid var(--w98-darker) !important;
@@ -120,7 +117,7 @@ nav:after{
   border-radius:0 !important;
 }
 
-/* REMOVE DOUBLE FRAMING ON HEADINGS */
+/* Strip SpaceHey double borders on headings */
 .profile .heading, .left .table-section .heading{
   background:transparent !important;
   border:0 !important;
@@ -129,33 +126,16 @@ nav:after{
   box-shadow:none !important;
 }
 
-/* TITLE BARS: FLAT BLUE STRIP */
+/* Title bars */
 .profile h1,
 .profile .mood:before,
-.profile .right .blog-preview:before{
-  background:var(--w98-blue) !important;
-  color:#fff !important;
-  font-weight:bold !important;
-  font-size:12px !important;
-  line-height:18px !important;
-  height:18px !important;
-  padding:2px 6px !important;
-  border:0 !important;
-  margin:0 0 6px 0 !important;
-  text-shadow:none !important;
-  display:block !important;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* SECTION HEADERS (h4) */
+.profile .right .blog-preview:before,
 .profile .blurbs .heading h4,
 .profile .friends .heading h4,
 .left .table-section .heading h4{
   background:var(--w98-blue) !important;
-  color:#fff !important;
-  font-weight:bold !important;
+  color:var(--w98-white) !important;
+  font-weight:700 !important;
   font-size:12px !important;
   line-height:18px !important;
   height:18px !important;
@@ -169,50 +149,67 @@ nav:after{
   text-overflow:ellipsis;
 }
 
-/* CONTENT AREAS INSIDE WINDOWS */
+/* PROFILE NAME BAR spacing */
+.profile h1{ margin-bottom:6px !important; }
+
+/* =========================
+   WIN98 CLIENT AREAS (inset)
+   ========================= */
+
+/* Default “client area” look (light gray with inset) */
+.profile .general-about .inner,
 .profile .mood .inner,
 .profile .blog-preview .inner,
 .profile .blurbs .inner,
 .profile .friends .inner,
-.left .table-section .inner{
-  background:#fff !important;
-  border:2px inset var(--w98-gray) !important;
+.left .table-section .inner,
+.profile .url-info,
+.profile .profile-info,
+.profile .right .comments-table{
+  background:var(--w98-face) !important;
+  border:2px inset var(--w98-face) !important;
   margin:6px !important;
   padding:6px !important;
 }
 
-/* ✅ FIX: GENERAL-ABOUT HEIGHT + FLOAT COLLAPSE */
-.profile .general-about{
-  position:relative !important;
-  min-height:340px !important;      /* make it taller */
-  padding:8px !important;
+/* Make text-entry style regions white inside the inset area (Notepad vibe) */
+.profile .blurbs .inner,
+.profile .friends .inner,
+.profile .blog-preview .inner,
+.profile .mood .inner,
+.profile .right .comments-table{
+  background:var(--w98-white) !important;
+  border:2px inset var(--w98-face) !important;
 }
 
-/* clearfix so floated profile pic doesn't collapse parent */
+/* GENERAL-ABOUT: make it taller + fix float collapse */
+.profile .general-about{
+  min-height:340px !important;
+  padding:6px !important;
+}
 .profile .general-about::after{
   content:"";
   display:block;
   clear:both;
 }
-
-/* ensure pic + text sit nicely */
 .general-about .profile-pic{
   float:left !important;
   margin:0 10px 10px 0 !important;
 }
-.general-about .details,
-.general-about .details *{
-  line-height:var(--ui-line-height) !important;
-}
 
-/* TABLE CELLS */
+/* TABLES / CELLS */
 .left .details-table td,
-.left .details-table th{
-  background:#fff !important;
+.left .details-table th,
+.left .details-table tr{
+  background:var(--w98-face) !important;
   border:1px solid var(--w98-dark) !important;
 }
+.left .details-table td:first-child{
+  background:var(--w98-face) !important;
+  font-weight:700 !important;
+}
 
-/* PROFILE ACTION BUTTONS (Win98 buttons) */
+/* CONTACT BUTTONS: Win98 buttons */
 .profile .contact a,
 .profile .f-col a,
 .profile .url-info a,
@@ -220,7 +217,7 @@ nav:after{
 .profile .right .friends a,
 .profile .right .blurbs a,
 .profile .right .comments-table a{
-  background:var(--w98-gray) !important;
+  background:var(--w98-face) !important;
   color:#000 !important;
   text-decoration:none !important;
   padding:2px 6px !important;
@@ -243,17 +240,13 @@ nav:after{
   border-bottom:2px solid var(--w98-light) !important;
 }
 
-/* COMMENTS */
-.profile .right .comments-table{
-  background:#fff !important;
-  border:2px inset var(--w98-gray) !important;
-}
+/* COMMENTS LEFT COLUMN */
 .profile .right .comments-table td:first-child{
-  background:#e0e0e0 !important;
+  background:var(--w98-face) !important;
   border-right:1px solid var(--w98-dark) !important;
   border-bottom:1px solid var(--w98-dark) !important;
 }
 
-/* NO ROUNDED CORNERS ANYWHERE */
+/* UNIVERSAL: no rounding */
 *{ border-radius:0 !important; }
 </style>
