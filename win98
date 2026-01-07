@@ -1,0 +1,119 @@
+:root {
+  --win98-gray: #c0c0c0;
+  --win98-light: #ffffff;
+  --win98-dark: #808080;
+  --win98-darker: #404040;
+  --win98-blue: #000080;
+}
+
+body {
+  background: #008080;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #000;
+  background-image: url("https://lh3.googleusercontent.com/sitesv/AAzXCkfP6fgam329OEbYMK6_0_N37xTpRXvXu1OPkd6qS9PZS32p4hEb1QpVVrKI-SOAgqJNkH09yEyVpIyd0sOeaYWj-XCwA8jhWZ_1pKrMz6M0lS58dAHHT-wRim93GeV1Ux-ocZaUvLjTomO2OIopHSLDLcZMsuk9Egqfspj-0QRJTirKAhd4kSP5AtKLqtxWKBRfKrAnG5CNE2swFSiJZGNEhyUUI_iG30XhbX4=w1280");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  animation: win98Boot 3.2s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes win98Boot {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+nav,
+footer,
+.profile h1,
+.profile .general-about,
+.profile .mood,
+.profile .blog-preview,
+.profile .blurbs,
+.profile .friends,
+.left .table-section,
+.profile .url-info,
+.profile .profile-info {
+  background: var(--win98-gray);
+  border-top: 2px solid var(--win98-light);
+  border-left: 2px solid var(--win98-light);
+  border-right: 2px solid var(--win98-darker);
+  border-bottom: 2px solid var(--win98-darker);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+nav:before,
+.profile h1,
+.profile .mood:before,
+.profile .right .blog-preview:before,
+.profile .right .blurbs .heading,
+.profile .right .friends .heading,
+.left .table-section .heading {
+  background: var(--win98-blue);
+  color: #fff;
+  text-shadow: none;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-bottom: 2px solid var(--win98-darker);
+  border-radius: 0;
+}
+
+nav:after {
+  content: "✕";
+  background: var(--win98-gray);
+  color: #000;
+  font-weight: bold;
+  border-top: 2px solid var(--win98-light);
+  border-left: 2px solid var(--win98-light);
+  border-right: 2px solid var(--win98-darker);
+  border-bottom: 2px solid var(--win98-darker);
+  padding: 0 6px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.profile a,
+.profile .f-col a {
+  background: var(--win98-gray);
+  color: #000;
+  text-decoration: none;
+  padding: 2px 6px;
+  border-top: 2px solid var(--win98-light);
+  border-left: 2px solid var(--win98-light);
+  border-right: 2px solid var(--win98-darker);
+  border-bottom: 2px solid var(--win98-darker);
+}
+
+.profile a:active {
+  border-top: 2px solid var(--win98-darker);
+  border-left: 2px solid var(--win98-darker);
+  border-right: 2px solid var(--win98-light);
+  border-bottom: 2px solid var(--win98-light);
+}
+
+.profile .comments-table,
+.profile .contact .inner {
+  background: #ffffff;
+  border: 2px inset var(--win98-gray);
+}
+
+.profile .right .comments-table td:first-child {
+  background: #e0e0e0;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+}
+
+.comment-replies {
+  border-left: 3px solid #000080;
+}
