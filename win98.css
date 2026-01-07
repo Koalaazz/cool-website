@@ -5,16 +5,17 @@
   --w98-white:#fdffff;
   --w98-blue:#010081;
   --w98-teal:#008080;
-  --w98-dark:#7f7f7f;
-  --w98-darker:#3f3f3f;
+  --w98-dark:#808080;
+  --w98-darker:#404040;
   --w98-light:#fdffff;
+  --w98-black:#000000;
 
   --ui-font-size:12px;
   --ui-line-height:1.35;
-  --ui-letter-spacing:0.2px;
+  --ui-letter-spacing:0.15px;
 }
 
-/* VCR OSD MONO (your hosted font) */
+/* VCR OSD MONO (served from your domain) */
 @font-face{
   font-family:"VCR OSD Mono";
   src:url("https://90s.koalaz.org/VCR_OSD_MONO_1.001.ttf") format("truetype");
@@ -23,7 +24,6 @@
   font-display:swap;
 }
 
-/* DESKTOP */
 body{
   background:var(--w98-teal) !important;
   font-family:"VCR OSD Mono","MS Sans Serif",Tahoma,sans-serif !important;
@@ -35,27 +35,16 @@ body{
   text-rendering:geometricPrecision;
 }
 
-/* PAGE STRUCTURE */
+/* STRUCTURE */
 .container, main{ background:transparent !important; }
-main{ padding:12px 0 !important; }
+main{ padding:14px 0 !important; }
 .container{
   width:min(100%, 980px) !important;
-  margin:12px auto !important;
+  margin:14px auto !important;
   padding:0 !important;
 }
 
-/* KEEP SPACEHEY TOP BAR CLEAN (do not button-style nav links) */
-nav a, footer a{
-  background:transparent !important;
-  border:0 !important;
-  padding:0 !important;
-  color:var(--w98-white) !important;
-  text-decoration:none !important;
-}
-nav a:hover, footer a:hover{ text-decoration:underline !important; }
-nav .top, nav .links, nav .info{ border:0 !important; }
-
-/* NAV WINDOW FRAME */
+/* TOP NAV stays SpaceHey-ish, but with Win98 trim */
 nav, footer{
   background:var(--w98-face) !important;
   border-top:2px solid var(--w98-light) !important;
@@ -64,10 +53,21 @@ nav, footer{
   border-bottom:2px solid var(--w98-darker) !important;
   box-shadow:none !important;
   border-radius:0 !important;
-  position:relative !important;
 }
+nav .top, nav .links, nav .info{ border:0 !important; }
 
-/* NAV CLOSE BUTTON (visual only) */
+/* Don't turn nav links into buttons */
+nav a, footer a{
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  color:#fff !important;
+  text-decoration:none !important;
+}
+nav a:hover, footer a:hover{ text-decoration:underline !important; }
+
+/* NAV close button */
+nav{ position:relative !important; }
 nav:after{
   content:"X";
   position:absolute;
@@ -89,15 +89,10 @@ nav:after{
   pointer-events:none;
 }
 
-/* REMOVE DARK SITE BACKGROUNDS */
+/* RESET DARK THEME BACKGROUNDS */
 .profile, .profile .left, .profile .right{ background:transparent !important; }
 
-/* =========================
-   WIN98 WINDOW SHELLS
-   (outer frame + title bar)
-   ========================= */
-
-/* Outer window frame */
+/* WINDOWS (outer shell) — this is the “box behind the info” you want */
 .profile .general-about,
 .profile .mood,
 .profile .blog-preview,
@@ -108,7 +103,7 @@ nav:after{
 .profile .profile-info,
 .profile .contact,
 .profile .right .comments-table{
-  background:var(--w98-body) !important; /* your darker window body */
+  background:var(--w98-body) !important; /* darker body like your screenshot */
   border-top:2px solid var(--w98-light) !important;
   border-left:2px solid var(--w98-light) !important;
   border-right:2px solid var(--w98-darker) !important;
@@ -117,8 +112,9 @@ nav:after{
   border-radius:0 !important;
 }
 
-/* Strip SpaceHey double borders on headings */
-.profile .heading, .left .table-section .heading{
+/* REMOVE SPACEHEY DOUBLE BORDERS ON HEADERS */
+.profile .heading,
+.left .table-section .heading{
   background:transparent !important;
   border:0 !important;
   padding:0 !important;
@@ -126,16 +122,33 @@ nav:after{
   box-shadow:none !important;
 }
 
-/* Title bars */
+/* TITLE BARS (flat blue strip) */
 .profile h1,
 .profile .mood:before,
-.profile .right .blog-preview:before,
+.profile .right .blog-preview:before{
+  background:var(--w98-blue) !important;
+  color:var(--w98-white) !important;
+  font-weight:bold !important;
+  font-size:12px !important;
+  line-height:18px !important;
+  height:18px !important;
+  padding:2px 6px !important;
+  border:0 !important;
+  margin:0 0 6px 0 !important;
+  text-shadow:none !important;
+  display:block !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* SECTION HEADERS (h4) */
 .profile .blurbs .heading h4,
 .profile .friends .heading h4,
 .left .table-section .heading h4{
   background:var(--w98-blue) !important;
   color:var(--w98-white) !important;
-  font-weight:700 !important;
+  font-weight:bold !important;
   font-size:12px !important;
   line-height:18px !important;
   height:18px !important;
@@ -149,43 +162,44 @@ nav:after{
   text-overflow:ellipsis;
 }
 
-/* PROFILE NAME BAR spacing */
-.profile h1{ margin-bottom:6px !important; }
-
-/* =========================
-   WIN98 CLIENT AREAS (inset)
-   ========================= */
-
-/* Default “client area” look (light gray with inset) */
-.profile .general-about .inner,
+/* ✅ WIN98 “client area” boxes (the white inset areas) */
+.profile .general-about,
 .profile .mood .inner,
 .profile .blog-preview .inner,
 .profile .blurbs .inner,
 .profile .friends .inner,
 .left .table-section .inner,
 .profile .url-info,
-.profile .profile-info,
-.profile .right .comments-table{
-  background:var(--w98-face) !important;
-  border:2px inset var(--w98-face) !important;
-  margin:6px !important;
-  padding:6px !important;
+.profile .profile-info{
+  position:relative !important;
 }
 
-/* Make text-entry style regions white inside the inset area (Notepad vibe) */
+/* Give sections a Win98 face-gray padding area, then inset white box */
+.profile .mood .inner,
+.profile .blog-preview .inner,
 .profile .blurbs .inner,
 .profile .friends .inner,
-.profile .blog-preview .inner,
-.profile .mood .inner,
-.profile .right .comments-table{
-  background:var(--w98-white) !important;
-  border:2px inset var(--w98-face) !important;
+.left .table-section .inner{
+  background:var(--w98-face) !important;
+  padding:6px !important;
+  margin:6px !important;
 }
 
-/* GENERAL-ABOUT: make it taller + fix float collapse */
+/* Inset white panel inside */
+.profile .mood .inner > *,
+.profile .blog-preview .inner > *,
+.profile .blurbs .inner > *,
+.profile .friends .inner > *,
+.left .table-section .inner > *{
+  background:var(--w98-white) !important;
+  border:2px inset var(--w98-face) !important;
+  padding:6px !important;
+}
+
+/* GENERAL ABOUT: keep it taller and Win98-like */
 .profile .general-about{
   min-height:340px !important;
-  padding:6px !important;
+  padding:8px !important;
 }
 .profile .general-about::after{
   content:"";
@@ -196,20 +210,23 @@ nav:after{
   float:left !important;
   margin:0 10px 10px 0 !important;
 }
-
-/* TABLES / CELLS */
-.left .details-table td,
-.left .details-table th,
-.left .details-table tr{
+.general-about .details{
   background:var(--w98-face) !important;
+  padding:6px !important;
+  border:2px inset var(--w98-face) !important;
+}
+.general-about .details > *{
+  background:transparent !important;
+}
+
+/* TABLES */
+.left .details-table td,
+.left .details-table th{
+  background:var(--w98-white) !important;
   border:1px solid var(--w98-dark) !important;
 }
-.left .details-table td:first-child{
-  background:var(--w98-face) !important;
-  font-weight:700 !important;
-}
 
-/* CONTACT BUTTONS: Win98 buttons */
+/* BUTTONS (only profile action links) */
 .profile .contact a,
 .profile .f-col a,
 .profile .url-info a,
@@ -218,7 +235,7 @@ nav:after{
 .profile .right .blurbs a,
 .profile .right .comments-table a{
   background:var(--w98-face) !important;
-  color:#000 !important;
+  color:var(--w98-black) !important;
   text-decoration:none !important;
   padding:2px 6px !important;
   border-top:2px solid var(--w98-light) !important;
@@ -240,13 +257,19 @@ nav:after{
   border-bottom:2px solid var(--w98-light) !important;
 }
 
-/* COMMENTS LEFT COLUMN */
+/* COMMENTS */
+.profile .right .comments-table{
+  background:var(--w98-face) !important;
+  padding:6px !important;
+}
+.profile .right .comments-table td{
+  background:var(--w98-white) !important;
+  border:1px solid var(--w98-dark) !important;
+}
 .profile .right .comments-table td:first-child{
   background:var(--w98-face) !important;
-  border-right:1px solid var(--w98-dark) !important;
-  border-bottom:1px solid var(--w98-dark) !important;
 }
 
-/* UNIVERSAL: no rounding */
+/* NO ROUNDED CORNERS ANYWHERE */
 *{ border-radius:0 !important; }
 </style>
