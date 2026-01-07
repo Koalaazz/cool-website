@@ -1,40 +1,106 @@
-:root {
-  --win98-gray: #c0c0c0;
-  --win98-light: #ffffff;
-  --win98-dark: #808080;
-  --win98-darker: #404040;
-  --win98-blue: #000080;
+<style>
+:root{
+  --w98-gray:#c0c0c0;
+  --w98-light:#ffffff;
+  --w98-dark:#808080;
+  --w98-darker:#404040;
+  --w98-blue:#000080;
+
+  /* Typography tuning so VCR-ish fonts don't look chunky */
+  --ui-font-size:12px;
+  --ui-line-height:1.35;
+  --ui-letter-spacing:0.2px;
 }
 
-body {
-  background: #008080;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
-  font-size: 12px;
+/* OPTIONAL: REAL VCR OSD MONO (requires you to host a woff2 file)
+   1) Download VCR OSD Mono from DaFont
+   2) Convert to .woff2
+   3) Upload somewhere with a direct file URL
+   4) Replace the URL below and it’ll automatically apply
+*/
+/*
+@font-face{
+  font-family:"VCR OSD Mono";
+  src:url("PUT_YOUR_DIRECT_WOFF2_URL_HERE.woff2") format("woff2");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+*/
+
+body{
+  background:#008080 !important;
+
+  /* If you host the font, it’ll use it. Otherwise it falls back cleanly. */
+  font-family:"VCR OSD Mono", ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace !important;
+
+  font-size:var(--ui-font-size) !important;
+  line-height:var(--ui-line-height) !important;
+  letter-spacing:var(--ui-letter-spacing) !important;
+
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background-color: #000;
-  background-image: url("https://lh3.googleusercontent.com/sitesv/AAzXCkfP6fgam329OEbYMK6_0_N37xTpRXvXu1OPkd6qS9PZS32p4hEb1QpVVrKI-SOAgqJNkH09yEyVpIyd0sOeaYWj-XCwA8jhWZ_1pKrMz6M0lS58dAHHT-wRim93GeV1Ux-ocZaUvLjTomO2OIopHSLDLcZMsuk9Egqfspj-0QRJTirKAhd4kSP5AtKLqtxWKBRfKrAnG5CNE2swFSiJZGNEhyUUI_iG30XhbX4=w1280");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  animation: win98Boot 3.2s ease forwards;
-  pointer-events: none;
+/* PAGE STRUCTURE */
+.container, main{ background:transparent !important; }
+main{ padding:12px 0 !important; }
+.container{
+  width:min(100%, 980px) !important;
+  margin:12px auto !important;
+  padding:0 !important;
 }
 
-@keyframes win98Boot {
-  0% { opacity: 1; }
-  70% { opacity: 1; }
-  100% { opacity: 0; visibility: hidden; }
+/* NAV / FOOTER WINDOWS */
+nav, footer{
+  background:var(--w98-gray) !important;
+  border-top:2px solid var(--w98-light) !important;
+  border-left:2px solid var(--w98-light) !important;
+  border-right:2px solid var(--w98-darker) !important;
+  border-bottom:2px solid var(--w98-darker) !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
 }
 
-nav,
-footer,
-.profile h1,
+/* DO NOT BUTTON-STYLE TOP NAV LINKS */
+nav a, footer a{
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  color:#fff !important;
+  text-decoration:none !important;
+}
+nav a:hover, footer a:hover{ text-decoration:underline !important; }
+nav .top, nav .links, nav .info{ border:0 !important; }
+
+/* NAV CLOSE BUTTON */
+nav{ position:relative !important; }
+nav:after{
+  content:"X";
+  position:absolute;
+  top:4px;
+  right:6px;
+  width:16px;
+  height:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:bold;
+  color:#000;
+  background:var(--w98-gray);
+  border-top:2px solid var(--w98-light);
+  border-left:2px solid var(--w98-light);
+  border-right:2px solid var(--w98-darker);
+  border-bottom:2px solid var(--w98-darker);
+  pointer-events:none;
+}
+
+/* KILL DARK THEME BACKGROUNDS */
+.profile, .profile .left, .profile .right{ background:transparent !important; }
+
+/* WINDOWS */
 .profile .general-about,
 .profile .mood,
 .profile .blog-preview,
@@ -42,78 +108,152 @@ footer,
 .profile .friends,
 .left .table-section,
 .profile .url-info,
-.profile .profile-info {
-  background: var(--win98-gray);
-  border-top: 2px solid var(--win98-light);
-  border-left: 2px solid var(--win98-light);
-  border-right: 2px solid var(--win98-darker);
-  border-bottom: 2px solid var(--win98-darker);
-  border-radius: 0;
-  box-shadow: none;
+.profile .profile-info,
+.profile .contact,
+.profile .right .comments-table{
+  background:var(--w98-gray) !important;
+  border-top:2px solid var(--w98-light) !important;
+  border-left:2px solid var(--w98-light) !important;
+  border-right:2px solid var(--w98-darker) !important;
+  border-bottom:2px solid var(--w98-darker) !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
 }
 
-nav:before,
+/* REMOVE DOUBLE FRAMING ON HEADINGS */
+.profile .heading, .left .table-section .heading{
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  box-shadow:none !important;
+}
+
+/* TITLE BARS: FLAT BLUE STRIP */
 .profile h1,
 .profile .mood:before,
-.profile .right .blog-preview:before,
-.profile .right .blurbs .heading,
-.profile .right .friends .heading,
-.left .table-section .heading {
-  background: var(--win98-blue);
-  color: #fff;
-  text-shadow: none;
-  font-weight: bold;
-  padding: 4px 6px;
-  border-bottom: 2px solid var(--win98-darker);
-  border-radius: 0;
+.profile .right .blog-preview:before{
+  background:var(--w98-blue) !important;
+  color:#fff !important;
+  font-weight:bold !important;
+  font-size:12px !important;
+  line-height:18px !important;
+  height:18px !important;
+  padding:2px 6px !important;
+  border:0 !important;
+  margin:0 0 6px 0 !important;
+  text-shadow:none !important;
+  display:block !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-nav:after {
-  content: "✕";
-  background: var(--win98-gray);
-  color: #000;
-  font-weight: bold;
-  border-top: 2px solid var(--win98-light);
-  border-left: 2px solid var(--win98-light);
-  border-right: 2px solid var(--win98-darker);
-  border-bottom: 2px solid var(--win98-darker);
-  padding: 0 6px;
-  position: absolute;
-  top: 4px;
-  right: 4px;
+/* SECTION HEADERS (h4) */
+.profile .blurbs .heading h4,
+.profile .friends .heading h4,
+.left .table-section .heading h4{
+  background:var(--w98-blue) !important;
+  color:#fff !important;
+  font-weight:bold !important;
+  font-size:12px !important;
+  line-height:18px !important;
+  height:18px !important;
+  padding:2px 6px !important;
+  border:0 !important;
+  margin:0 !important;
+  text-shadow:none !important;
+  display:block !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.profile a,
-.profile .f-col a {
-  background: var(--win98-gray);
-  color: #000;
-  text-decoration: none;
-  padding: 2px 6px;
-  border-top: 2px solid var(--win98-light);
-  border-left: 2px solid var(--win98-light);
-  border-right: 2px solid var(--win98-darker);
-  border-bottom: 2px solid var(--win98-darker);
+/* CONTENT AREAS INSIDE WINDOWS */
+.profile .mood .inner,
+.profile .blog-preview .inner,
+.profile .blurbs .inner,
+.profile .friends .inner,
+.left .table-section .inner{
+  background:#fff !important;
+  border:2px inset var(--w98-gray) !important;
+  margin:6px !important;
+  padding:6px !important;
 }
 
-.profile a:active {
-  border-top: 2px solid var(--win98-darker);
-  border-left: 2px solid var(--win98-darker);
-  border-right: 2px solid var(--win98-light);
-  border-bottom: 2px solid var(--win98-light);
+/* ✅ FIX: GENERAL-ABOUT HEIGHT + FLOAT COLLAPSE */
+.profile .general-about{
+  position:relative !important;
+  min-height:340px !important;      /* make it taller */
+  padding:8px !important;
 }
 
-.profile .comments-table,
-.profile .contact .inner {
-  background: #ffffff;
-  border: 2px inset var(--win98-gray);
+/* clearfix so floated profile pic doesn't collapse parent */
+.profile .general-about::after{
+  content:"";
+  display:block;
+  clear:both;
 }
 
-.profile .right .comments-table td:first-child {
-  background: #e0e0e0;
-  border-right: 1px solid #808080;
-  border-bottom: 1px solid #808080;
+/* ensure pic + text sit nicely */
+.general-about .profile-pic{
+  float:left !important;
+  margin:0 10px 10px 0 !important;
+}
+.general-about .details,
+.general-about .details *{
+  line-height:var(--ui-line-height) !important;
 }
 
-.comment-replies {
-  border-left: 3px solid #000080;
+/* TABLE CELLS */
+.left .details-table td,
+.left .details-table th{
+  background:#fff !important;
+  border:1px solid var(--w98-dark) !important;
 }
+
+/* PROFILE ACTION BUTTONS (Win98 buttons) */
+.profile .contact a,
+.profile .f-col a,
+.profile .url-info a,
+.profile .profile-info a,
+.profile .right .friends a,
+.profile .right .blurbs a,
+.profile .right .comments-table a{
+  background:var(--w98-gray) !important;
+  color:#000 !important;
+  text-decoration:none !important;
+  padding:2px 6px !important;
+  border-top:2px solid var(--w98-light) !important;
+  border-left:2px solid var(--w98-light) !important;
+  border-right:2px solid var(--w98-darker) !important;
+  border-bottom:2px solid var(--w98-darker) !important;
+  display:inline-block !important;
+}
+.profile .contact a:active,
+.profile .f-col a:active,
+.profile .url-info a:active,
+.profile .profile-info a:active,
+.profile .right .friends a:active,
+.profile .right .blurbs a:active,
+.profile .right .comments-table a:active{
+  border-top:2px solid var(--w98-darker) !important;
+  border-left:2px solid var(--w98-darker) !important;
+  border-right:2px solid var(--w98-light) !important;
+  border-bottom:2px solid var(--w98-light) !important;
+}
+
+/* COMMENTS */
+.profile .right .comments-table{
+  background:#fff !important;
+  border:2px inset var(--w98-gray) !important;
+}
+.profile .right .comments-table td:first-child{
+  background:#e0e0e0 !important;
+  border-right:1px solid var(--w98-dark) !important;
+  border-bottom:1px solid var(--w98-dark) !important;
+}
+
+/* NO ROUNDED CORNERS ANYWHERE */
+*{ border-radius:0 !important; }
+</style>
