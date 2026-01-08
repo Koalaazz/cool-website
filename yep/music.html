@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <body style="margin:0;background:transparent;">
+    <audio id="bgm" autoplay></audio>
+
+    <script>
+      const tracks = [
+        "https://files.catbox.moe/w2kaer.mp3",
+        "https://files.catbox.moe/gvy99y.mp3",
+        "https://files.catbox.moe/94tj27.mp3",
+        "https://files.catbox.moe/4z24gp.mp3",
+        "https://files.catbox.moe/ifxbro.mp3"
+      ];
+
+      const a = document.getElementById("bgm");
+
+      // shuffle pick
+      a.src = tracks[Math.floor(Math.random() * tracks.length)];
+      a.volume = 0.6;
+
+      // loop without relying on the loop attribute
+      a.addEventListener("ended", () => { a.currentTime = 0; a.play(); });
+
+      // autoplay policies: start on first user interaction if needed
+      const kick = () => a.play().catch(()=>{});
+      document.addEventListener("click", kick, { once:true });
+      document.addEventListener("keydown", kick, { once:true });
+    </script>
+  </body>
+</html>
