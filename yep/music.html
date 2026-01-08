@@ -1,30 +1,22 @@
-<!doctype html>
-<html>
-  <body style="margin:0;background:transparent;">
-    <audio id="bgm" autoplay></audio>
-
-    <script>
-      const tracks = [
-        "https://files.catbox.moe/w2kaer.mp3",
-        "https://files.catbox.moe/gvy99y.mp3",
-        "https://files.catbox.moe/94tj27.mp3",
-        "https://files.catbox.moe/4z24gp.mp3",
-        "https://files.catbox.moe/ifxbro.mp3"
-      ];
-
-      const a = document.getElementById("bgm");
-
-      // shuffle pick
-      a.src = tracks[Math.floor(Math.random() * tracks.length)];
-      a.volume = 0.6;
-
-      // loop without relying on the loop attribute
-      a.addEventListener("ended", () => { a.currentTime = 0; a.play(); });
-
-      // autoplay policies: start on first user interaction if needed
-      const kick = () => a.play().catch(()=>{});
-      document.addEventListener("click", kick, { once:true });
-      document.addEventListener("keydown", kick, { once:true });
-    </script>
-  </body>
-</html>
+<iframe width="0" height="0" style="border:0;opacity:0;"
+srcdoc='<!doctype html><html><body style="margin:0">
+<audio id="bgm" autoplay></audio>
+<script>
+const tracks=[
+"https://files.catbox.moe/w2kaer.mp3",
+"https://files.catbox.moe/gvy99y.mp3",
+"https://files.catbox.moe/94tj27.mp3",
+"https://files.catbox.moe/4z24gp.mp3",
+"https://files.catbox.moe/ifxbro.mp3"
+];
+const a=document.getElementById("bgm");
+a.volume=0.6;
+let last=-1;
+function pick(){let i; do{i=Math.floor(Math.random()*tracks.length)}while(i===last); last=i; return i;}
+function play(){a.src=tracks[pick()]; a.play().catch(()=>{});}
+a.addEventListener("ended",play);
+document.addEventListener("click",()=>a.play().catch(()=>{}),{once:true});
+document.addEventListener("keydown",()=>a.play().catch(()=>{}),{once:true});
+play();
+</script>
+</body></html>'></iframe>
